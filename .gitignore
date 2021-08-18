@@ -1,1 +1,3 @@
 
+# Ignore every file named a.exe 
+**/a.exe
