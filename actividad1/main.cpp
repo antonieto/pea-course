@@ -26,7 +26,7 @@ int sumaRecursiva(int n) {
 int sumaDirecta( int n ) {
     return (n*(n+1)/2);  //Operación básica 
     // La operacion se realiza una sola vez, por lo que el algoritmo pertenece a 
-    // O(n)
+    // O(1)
 }
 
 int main(){ 
