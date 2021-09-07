@@ -22,8 +22,13 @@ template <class T> class Node {
 template <class T> class DNode { 
     public: 
     T data; 
-    DNode* next; 
-    DNode* prev; 
+    DNode* next;  
+    DNode* prev;  
+
+    DNode(){ 
+        this->next = NULL; 
+        this->prev = NULL;
+    }
 
     void set_data(T new_data){ 
         this->data = new_data;
@@ -180,6 +185,7 @@ template<class T> class DoublyLinkedList{
                 return; 
             } 
             this->tail->set_next(newNode); 
+            newNode->set_prev(this->tail); 
             this->tail = newNode; 
         }
 
@@ -188,8 +194,6 @@ template<class T> class DoublyLinkedList{
             DNode<T>* newNode = new DNode<T>; 
             newNode->set_data(info);  
             if(head == NULL) { 
-                newNode->set_next(NULL); 
-                newNode->set_prev(NULL); 
                 head = newNode; 
                 tail = newNode; 
                 return;
@@ -200,7 +204,7 @@ template<class T> class DoublyLinkedList{
         }
 
         // Method adds info to the begining of the list
-        void add_after_node(T value_xinsert, T value_target){
+        void add_after_node(T value_insert, T value_target){
             /*Implements this part*/ 
            DNode<T>* current_node = this->head;
             while(current_node != NULL){ 
@@ -274,12 +278,12 @@ template<class T> class DoublyLinkedList{
 
         void print_list(){
             DNode<T>* current_node = this->head;
-            while (current_node != NULL){
-                cout << current_node ->data << " -> ";
-
-                current_node = current_node->next;
-            }
+            while(current_node){ 
+                cout << current_node->data << "->"; 
+                current_node = current_node->get_next();  
+            } 
             cout << endl;
+
         } 
         
 };
@@ -292,17 +296,18 @@ int main(){
     newList.add_begin(3);
     newList.add_begin(6); 
 
+    newList.print_list();
+
     newList.add_after_node(5,3);
+
+    newList.add_end(99);
 
     newList.print_list();
 
     cout << "Deleting node 3" << endl; 
 
     newList.delete_node(3); 
-    newList.add_end(99);
-
-
-    newList.print_list();
+    newList.print_list(); 
 
     return 0;
 }
