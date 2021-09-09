@@ -75,27 +75,74 @@ void printArray(vector<int> array){
     cout << endl;
 }
 
+void merge(vector<int> &arr, int l, int r, int m){ 
+    int size1 = m - l + 1;
+    int size2 = r - m; 
+    vector<int> leftArray, rightArray; 
+    for(int i = 0; i < size1; i++){ 
+        leftArray.push_back(arr[l+i]);
+    } 
+    for(int j = 0; j < size2; j++){ 
+        rightArray.push_back(arr[m+j+1]); 
+    }  
+    // Merge 
+    int i = 0; 
+    int j = 0; 
+    int k = l;
+    while(i < size1 && j < size2){ 
+        if(leftArray[i] <= rightArray[j]){ 
+            arr[k] = leftArray[i]; 
+            i++;
+        } else { 
+            arr[k] = rightArray[j]; 
+            j++; 
+        } 
+        k++;
+    }  
+    // Agregar elementos restantes
+    while(j < size2){ 
+        arr[k] = rightArray[j]; 
+        j++; 
+        k++;
+    }
+    while(i < size1){ 
+        arr[k] = leftArray[i]; 
+        i++; 
+        k++;
+    }  
+}
+
+
+void ordenaMerge(vector<int> &arr, int l, int r){ 
+    if(l < r){ 
+        int m = floor((l+r)/2); 
+        ordenaMerge(arr, l, m); 
+        ordenaMerge(arr,m+1,r); 
+        merge(arr,l,r,m);
+    } 
+}
+
 int main(){ 
     int n = 10;
 
-    vector<int> array(n, 0); 
+    vector<int> array1(n), array2(n), array, array3(n); 
 
     srand(time(0));
-    generate(array.begin(), array.end(), [](){ 
+    generate(array1.begin(), array1.end(), [](){ 
+        return rand() % 20;
+    }); 
+    generate(array2.begin(), array2.end(), [](){ 
+        return rand() % 20;
+    }); 
+    generate(array3.begin(), array3.end(), [](){ 
         return rand() % 20;
     }); 
 
-    cout << busqSecuencial(array, 1) << endl; 
-
-    cout << "desordenado" << endl; 
-    printArray(array);
-    cout << " Ordenado " << endl;
-    
-    printArray(ordenaIntercambio(array));  
-    
-    vector<int> array_ordenado = ordenaBurbuja(array); 
-
-    cout << busqBinaria(array_ordenado, 10) << endl;
+    array1 = ordenaIntercambio(array1); 
+    array2 = ordenaIntercambio(array2); 
+    printArray(array3);
+    ordenaMerge(array3, 0, array3.size() - 1);
+    printArray(array3);
 
     return 0;
 }
