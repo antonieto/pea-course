@@ -1,5 +1,6 @@
 
 # Ignore every file named a.exe 
 **/a.exe
+**/*.pdf
 
 Actividades\pea-course\actividad3\sorted.txt
