@@ -42,13 +42,22 @@ template <class T> class Node {
 template <class T> class P_Queue{
     public:
         Node<T>* head;
-
+        // P_Queue
+        // Descripción: constructor por default de la clase P_Queue
         P_Queue(){
             head=NULL;
         }
+        // P_Queue
+        // IN: el dato tipo T y su prioridad o int en Key
+        // Descripción: constructor que asigna los atrbutos data y prioridad
         P_Queue(T data, int prio){
             head = new Node<T>(data,prio);
         }
+         //enqueue
+        // IN: el dato tipo T y su prioridad o int en Key
+        // OUT: N/A
+        // Descripción: agrega a la cola el dato especificado
+        // Complejidad O(N)
         void enqueue(T data, int p){
             Node<T>* temp=head;
             Node<T>* insertNode = new Node<T>(data,p);
@@ -67,14 +76,28 @@ template <class T> class P_Queue{
                 head = insertNode;
             }
         }
+        // top
+        // IN: N/A
+        // OUT: un dato de tipo T
+        // Descripción: retorna el dato T del primer valor de la cola
+        // Complejidad O(1)
         T top(){
             return head->data;
         }
+        // dequeue
+        // IN: N/A
+        // OUT: N/A
+        // Descripción: elimina el primer valor de la cola
+        // Complejidad O(1)
         void dequeue(){
             Node<T>*temp = head;
             head = temp->next;
             delete temp;
         }
+        // isEmpty
+        // IN: N/A
+        // OUT: booleano(falso si no true si sí)
+        // Descripción: elimina el primer valor de la cola
         bool isEmpty(){
             bool status = head == NULL;
             return status;

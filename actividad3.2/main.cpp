@@ -1,101 +1,98 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <bits/stdc++.h> 
 
-template <class T> class mHeap { 
-    public: 
-        vector<T> heap;
-        int len;
-        
-        mHeap(){
+using namespace std; 
 
+// Declare the class
+class MaxHeap{
+    public:
+    vector<int> heap; 
+    int len;
+    void insert(int _data){
+        heap.push_back(_data); 
+        heapifyUp();
+    }
+    void heapifyUp(){
+        // Takes the last item and bubbles it up until it's at a right spot
+        int current = heap.size() - 1;
+        while( hasParent(current) && heap[current] > heap[getParentIndex(current)] ){
+            // Swap current and parent 
+            swap(getParentIndex(current), current); 
+            current = getParentIndex(current);
+        }
+    }
+    void heapifyDown(){
+        int current = 0; 
+        while(hasLeft(current)){
+            // smaller is arbitrary, before we check whether there is right child
+            int greater = getLeft(current); 
+            if(hasRight(current) && heap[getRight(current)] > heap[getLeft(current)]){
+                greater = getRight(current);
+            } 
+            // Swap current and greater 
+            swap(current, greater); 
+            current = greater; 
+
+        }
+    }
+
+    int getRight(int index){
+        return index*2 + 1;
+    }
+    int getLeft(int index){
+        return index*2 + 2;
+    } 
+    int getParentIndex(int index){
+        return ((index - 1) / 2);
+    } 
+    bool hasRight(int index){
+        return index*2 + 2 <= heap.size();
+    }
+    bool hasLeft(int index){
+        return index*2 + 1 <= heap.size();
+    } 
+    bool hasParent(int index){
+        return (index - 1) / 2 >= 0;
+    }
+    void swap(int i1, int i2){
+        int temp = this->heap[i1]; 
+        this->heap[i1] = this->heap[i2]; 
+        this->heap[i2] = temp;
+    }
+    
+    void printHeap(){
+        for (int i = 0; i <= heap.size() - 1; i++)
+        {
+            cout << heap[i] << ", ";
         } 
+        cout << "\n";
         
-        void swap(int i1, int i2){
-            T temp = heap[i1];
-            heap[i1] = heap[i2];
-            heap[i2] = temp;
-        }
-        
-        void heapifyUp(){
-            int current = heap.size() - 1; 
-            while(hasParent(current) && heap[current] > heap[getParentIndex(current)]){
-                swap(current, getParentIndex(current)); 
-                current = getParentIndex(current);
-            }
-        }
+    } 
+    void pop(){
+        // First, replace root with last item 
+        heap[0] = heap[heap.size() - 1];
+        // Then, pop last item 
+        heap.pop_back(); 
+        heapifyDown();
+        // Heapify the heap 
 
-        void heapifyDown(){
-            int smallest = heap.size() - 1;
+    }
 
-            int index = 0;
-            heap[index] = heap[smallest];
-
-            while(hasLeft(index)){
-                int maxChildIndex = getLeft(index);
-                if(hasRight(index) && heap[getRight(index)] > heap[maxChildIndex]){
-                    maxChildIndex = heap[getRight(index)];
-                }
-                if(heap[maxChildIndex] > heap[index]){
-                    swap(maxChildIndex, index);
-                }else{
-                    break;
-                }
-                index = maxChildIndex;
-            }
-        }
-
-        void insert(T data){
-            // Push to heap 
-            len++;
-            heap.push_back(data); 
-            heapifyUp();
-        }
-        
-        int getParentIndex(int index){
-            return (index-1)/2;
-        }
-        
-        int getLeft(int index){
-            return index*2 + 1;
-        }
-
-        int getRight(int index){
-            return index*2 + 2;
-        } 
-
-        bool hasRight(int index){
-            return index*2 + 2 < this->heap.size();
-        }
-		
-        bool hasLeft(int index) {
-			return index*2 + 1 < this->heap.size();
-		}
-        
-        bool hasParent(int index){
-            return (index-1)/2 >= 0;
-        }
-        
-        void print(){
-            for(auto &it: heap){
-                cout<<it<<endl;
-            }
-        }
-         
-        int pop(){
-            
-        }
 };
 
-int main() {
-    mHeap<int> ourHeap; 
-    ourHeap.insert(100);
-    ourHeap.insert(50);
-    ourHeap.insert(200);
-    ourHeap.insert(150);
-    ourHeap.insert(38); 
-    ourHeap.insert(40); 
-    ourHeap.insert(99); 
-    ourHeap.print();
-    ourHeap.heapifyDown();
-    ourHeap.print();
+int main(){
+
+    MaxHeap myHeap; 
+    myHeap.insert(40);
+    myHeap.insert(10);
+    myHeap.insert(15);
+    myHeap.insert(20);
+    myHeap.insert(30);
+    myHeap.insert(8); 
+    myHeap.printHeap();
+    myHeap.pop(); 
+    myHeap.pop(); 
+    myHeap.insert(40);
+    myHeap.insert(30);
+    myHeap.printHeap(); 
+
 }
