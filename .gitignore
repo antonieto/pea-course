@@ -3,4 +3,8 @@
 **/a.exe
 **/*.pdf
 **/*.exe
+
+# Ignore code runner files 
+**/tempCodeRunner.cpp
+
 Actividades\pea-course\actividad3\sorted.txt
