@@ -5,6 +5,6 @@
 **/*.exe
 
 # Ignore code runner files 
-**/tempCodeRunner.cpp
+**/tempCodeRunnerFile.cpp
 
 Actividades\pea-course\actividad3\sorted.txt
