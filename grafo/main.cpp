@@ -1,3 +1,7 @@
+// José Antonio Chaires Monroy
+// ITESM Campus Guadalajara
+// A01640114  
+
 #include <bits/stdc++.h>
 
 using namespace std; 
